@@ -1,108 +1,82 @@
-# 🚀 Revenue Leakage Risk Prediction — ML Project
+# Revenue Leakage Risk Prediction
 
-## 📌 Overview
+## Project Overview
 
-This project builds a Machine Learning model to predict **revenue leakage risk** in e-commerce orders using the Olist dataset (Brazilian e-commerce data).
+This project builds a machine learning model to predict whether an e-commerce order is likely to result in revenue leakage.
 
-Revenue leakage can occur due to delays, cancellations, high logistics costs, payment issues, or customer dissatisfaction.
-
-The goal is to proactively identify high-risk orders so businesses can take preventive action.
+Revenue leakage can happen due to delayed deliveries, cancellations, high shipping costs, or poor customer experience. The aim is to identify risky orders in advance so businesses can take corrective actions.
 
 ---
 
-## 📊 Dataset
+## Dataset
 
-**Source:** Olist E-commerce Dataset (Kaggle)
+Olist Brazilian E-commerce Dataset (Kaggle)
 
-The dataset contains real transactional data including:
+It contains real order data including:
 
 * Orders
 * Customers
 * Sellers
+* Products
 * Payments
 * Reviews
-* Products
-* Logistics information
+* Delivery information
+
+All tables were merged to create one dataset where each row represents a single order.
 
 ---
 
-## 🧠 Problem Statement
+## Problem Statement
 
-Predict whether an order is at risk of causing revenue leakage based on operational and behavioral signals.
-
-Target Variable:
+Predict a binary target:
 
 **leakage_risk**
 
 * 0 → Low risk
 * 1 → High risk
 
+The label was created using business rules based on delays, cancellations, freight cost, and review scores.
+
 ---
 
-## ⚙️ Project Pipeline
+## Steps Followed
 
-### 1️⃣ Data Cleaning
+### Data Cleaning
 
-* Removed duplicates
+* Removed duplicate records
 * Handled missing values
-* Converted timestamps
-* Filtered useful columns
+* Converted date columns
+* Selected relevant columns
 
-### 2️⃣ Data Integration
+### Data Integration
 
-Merged multiple tables into one order-level dataset:
+Multiple datasets were joined using keys like order_id, customer_id, and product_id.
 
-* Orders
-* Customers
-* Order Items
-* Payments
-* Reviews
-* Sellers
-* Products
+### Feature Engineering
 
-Final dataset → **1 row = 1 order**
-
----
-
-### 3️⃣ Feature Engineering
-
-Created business-relevant features such as:
+Created useful business features such as:
 
 * Delivery time
-* Delay vs estimated delivery
+* Delay compared to estimate
 * Total order value
-* Freight ratio
-* Number of items & sellers
-* Payment behavior
+* Freight ratio (shipping cost vs product cost)
+* Number of items in order
+* Payment installments
 * Customer region
 * Review score
-* Cancellation / non-delivery flags
+* Late delivery and non-delivery flags
 
----
+### Modeling
 
-### 4️⃣ Target Creation
-
-Defined revenue leakage risk using:
-
-* Late deliveries
-* High shipping cost
-* Low ratings
-* Cancellations
-* Payment patterns
-
----
-
-### 5️⃣ Modeling
-
-Trained multiple models:
+Trained and compared:
 
 * Logistic Regression
-* Random Forest ⭐
+* Random Forest
 * Gradient Boosting
 
----
+### Evaluation
 
-### 6️⃣ Evaluation Metrics
+Models were evaluated using:
 
 * Accuracy
 * Precision
@@ -110,54 +84,33 @@ Trained multiple models:
 * F1 Score
 * Confusion Matrix
 
+Tree-based models performed best.
+
 ---
 
-### 7️⃣ Key Insights (Feature Importance)
+## Key Insights
 
-Top drivers of revenue leakage risk:
+Important factors influencing leakage risk include:
 
-* High number of payment installments
-* Low review scores
-* High freight ratio
+* Payment installment patterns
+* Customer ratings
+* High shipping cost relative to order value
 * Delivery delays
-* Order value patterns
-* Late delivery indicators
+* Order value
 
 ---
 
-## 📈 Results
-
-Tree-based models achieved near-perfect performance due to strong predictive features engineered from operational data.
-
----
-
-## 🛠️ Tech Stack
+## Tools Used
 
 * Python
-* Pandas & NumPy
+* Pandas, NumPy
 * Scikit-learn
-* Matplotlib & Seaborn
+* Matplotlib, Seaborn
 * Jupyter Notebook
 
 ---
 
-## 🎯 Business Impact
+## Author
 
-This model can help e-commerce companies:
-
-✔ Identify risky orders early
-✔ Reduce cancellations and losses
-✔ Improve logistics planning
-✔ Enhance customer satisfaction
-✔ Optimize pricing & shipping strategies
-
----
-
-## 👩‍💻 Author
-
-**Veda Shree S**
-AIML Student — BMSIT&M
-
----
-
-## ⭐ If you found this useful, please star the repository!
+Veda Shree S
+B.Tech AIML — BMSIT&M
