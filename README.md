@@ -1,18 +1,32 @@
-# Revenue Leakage Risk Prediction
+# Revenue Leakage Risk Prediction (E-commerce)
 
-## Project Overview
+This project builds a machine learning model to predict the risk of revenue leakage in e-commerce orders using operational, pricing, delivery, and customer behavior data.
 
-This project builds a machine learning model to predict whether an e-commerce order is likely to result in revenue leakage.
+Revenue leakage can occur due to delayed deliveries, cancellations, high logistics cost, payment patterns, or poor customer experience. Identifying high-risk orders helps businesses take preventive actions and reduce losses.
 
-Revenue leakage can happen due to delayed deliveries, cancellations, high shipping costs, or poor customer experience. The aim is to identify risky orders in advance so businesses can take corrective actions.
+---
+
+## Problem Statement
+
+E-commerce platforms handle thousands of orders daily. Some orders lead to financial loss due to:
+
+* Delivery delays
+* High shipping cost relative to product value
+* Order cancellations or failures
+* Low customer satisfaction
+* Risky payment behavior
+
+The goal is to predict whether an order is likely to result in revenue leakage.
 
 ---
 
 ## Dataset
 
-Olist Brazilian E-commerce Dataset (Kaggle)
+This project uses the **Olist Brazilian E-commerce Dataset** from Kaggle.
 
-It contains real order data including:
+🔗 https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+
+The dataset contains information about:
 
 * Orders
 * Customers
@@ -20,97 +34,129 @@ It contains real order data including:
 * Products
 * Payments
 * Reviews
-* Delivery information
+* Delivery timelines
 
-All tables were merged to create one dataset where each row represents a single order.
-
----
-
-## Problem Statement
-
-Predict a binary target:
-
-**leakage_risk**
-
-* 0 → Low risk
-* 1 → High risk
-
-The label was created using business rules based on delays, cancellations, freight cost, and review scores.
+Raw CSV files are not included due to GitHub size limits.
 
 ---
 
-## Steps Followed
+## Project Workflow
 
-### Data Cleaning
+### 1. Data Understanding
 
-* Removed duplicate records
+* Explored multiple relational tables
+* Identified keys and relationships
+* Examined missing values and duplicates
+
+### 2. Data Cleaning
+
+* Removed duplicates
 * Handled missing values
-* Converted date columns
-* Selected relevant columns
+* Converted timestamps
+* Selected useful columns
 
-### Data Integration
+### 3. Data Integration
 
-Multiple datasets were joined using keys like order_id, customer_id, and product_id.
+* Aggregated multi-row tables to order level
+* Merged all datasets into a single table
+* Each row represents one order
 
-### Feature Engineering
+### 4. Feature Engineering
 
-Created useful business features such as:
+Created business-relevant features such as:
 
-* Delivery time
-* Delay compared to estimate
+* Delivery duration
+* Delay vs estimated delivery
 * Total order value
-* Freight ratio (shipping cost vs product cost)
-* Number of items in order
-* Payment installments
+* Freight ratio
+* Number of items and sellers
+* Payment characteristics
 * Customer region
 * Review score
-* Late delivery and non-delivery flags
+* Cancellation indicators
 
-### Modeling
+### 5. Target Creation
 
-Trained and compared:
+Defined a custom **Revenue Leakage Risk** label based on:
+
+* Late delivery
+* High shipping cost
+* Low customer rating
+* Undelivered or cancelled orders
+
+### 6. Model Training
+
+The following models were trained:
 
 * Logistic Regression
 * Random Forest
 * Gradient Boosting
 
-### Evaluation
+### 7. Evaluation
 
 Models were evaluated using:
 
 * Accuracy
 * Precision
 * Recall
-* F1 Score
+* F1-Score
 * Confusion Matrix
 
-Tree-based models performed best.
+### 8. Insights & Drivers
+
+Feature importance analysis identified key drivers of revenue leakage risk.
 
 ---
 
-## Key Insights
+## Key Findings
 
-Important factors influencing leakage risk include:
+The most influential factors affecting leakage risk include:
 
-* Payment installment patterns
-* Customer ratings
-* High shipping cost relative to order value
+* Number of payment installments
+* Customer review score
+* Freight cost relative to product value
 * Delivery delays
 * Order value
+* Payment behavior
 
 ---
 
-## Tools Used
+## Technologies Used
 
 * Python
-* Pandas, NumPy
+* Pandas & NumPy
 * Scikit-learn
-* Matplotlib, Seaborn
+* Matplotlib & Seaborn
 * Jupyter Notebook
+
+---
+
+## How to Run
+
+1. Download the dataset from Kaggle
+2. Place the CSV files in the project folder
+3. Open the notebook (`ML Project.ipynb`)
+4. Run all cells sequentially
+
+---
+
+## Future Improvements
+
+* Hyperparameter tuning
+* Cross-validation
+* Real-time risk scoring
+* Deployment as a web application
+* Integration with business dashboards
 
 ---
 
 ## Author
 
 Veda Shree S
-B.Tech AIML — BMSIT&M
+Junior Data Analyst
+
+---
+
+## License
+
+This project is for educational and research purposes only.
